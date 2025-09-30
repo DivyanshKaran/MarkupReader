@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation Hub</title>
+    <script>
+      // GitHub Pages 404 redirect for client-side routing
+      // This script takes the current path and redirects to the index.html
+      // with the path as a query parameter so React Router can handle it
+      
+      var pathSegmentsToKeep = 0;
+      
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #f8fafc;
+        color: #334155;
+      ">
+        <h1 style="font-size: 2rem; margin-bottom: 1rem;">Loading...</h1>
+        <p style="color: #64748b;">Redirecting to the correct page...</p>
+      </div>
+    </div>
+  </body>
+</html>
