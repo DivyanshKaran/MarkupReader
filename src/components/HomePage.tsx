@@ -154,7 +154,7 @@ const HomePage: React.FC = () => {
                         Available Documents
                       </h4>
                       <div className="space-y-3">
-                        {project.files.slice(0, 3).map((file, fileIndex) => (
+                        {project.files.slice(0, 3).map((file) => (
                           <div key={file.fileName} className="flex items-center text-sm group/item">
                             <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary-400 to-secondary-400 mr-3 group-hover/item:scale-125 transition-transform"></div>
                             <span className="text-neutral-600 dark:text-neutral-400 capitalize group-hover/item:text-neutral-900 dark:group-hover/item:text-white transition-colors">
@@ -285,7 +285,5 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
-
-export default HomePage;
 
 export default HomePage;

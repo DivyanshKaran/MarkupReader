@@ -59,7 +59,7 @@ export default defineConfig({
         },
         neutral: {
           50: '#fafafa',
-          100: '#f4f4fø',
+          100: '#f4f4f5',
           200: '#e4e4e4',
           300: '#d4d4d4',
           400: '#a3a3a3',
