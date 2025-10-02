@@ -40,37 +40,32 @@ const HomePage: React.FC = () => {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <div className="relative overflow-hidden glass rounded-4xl p-8 md:p-12 text-center animate-slide-in">
-        {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-secondary-500/5 to-accent-500/10"></div>
-        <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-primary-400/20 to-secondary-400/20 rounded-full blur-xl"></div>
-        <div className="absolute bottom-4 left-4 w-32 h-32 bg-gradient-to-br from-accent-400/20 to-primary-400/20 rounded-full blur-xl"></div>
-        
-        <div className="relative max-w-4xl mx-auto">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl shadow-lg mb-8">
-            <BookOpen className="h-10 w-10 text-white" />
+      <div className="text-center py-16 animate-slide-in">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-neutral-100 dark:bg-neutral-800 rounded-lg mb-8">
+            <BookOpen className="h-8 w-8 text-neutral-600 dark:text-neutral-400" />
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6">
+          <h1 className="text-5xl md:text-6xl font-bold text-clean mb-6">
             Documentation Hub
           </h1>
-          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 mb-12 leading-relaxed max-w-3xl mx-auto">
-            Discover, learn, and build with our comprehensive collection of guides and tutorials.
-            Everything you need to create amazing projects, beautifully organized and ready to explore.
+          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-12 leading-relaxed max-w-3xl mx-auto">
+            Clean, organized documentation for modern developers. 
+            Everything you need to build amazing projects.
           </p>
           
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm font-medium">
-            <div className="flex items-center glass rounded-full px-4 py-2">
-              <Folder className="h-4 w-4 mr-2 text-primary-500" />
-              <span className="text-neutral-700 dark:text-neutral-300">{projects.length} Projects</span>
+          <div className="flex flex-wrap items-center justify-center gap-8 text-sm">
+            <div className="flex items-center px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+              <Folder className="h-4 w-4 mr-2 accent-green" />
+              <span className="text-clean">{projects.length} Projects</span>
             </div>
-            <div className="flex items-center glass rounded-full px-4 py-2">
-              <FileText className="h-4 w-4 mr-2 text-secondary-500" />
-              <span className="text-neutral-700 dark:text-neutral-300">{docsManifest.allFiles.length} Documents</span>
+            <div className="flex items-center px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+              <FileText className="h-4 w-4 mr-2 accent-green" />
+              <span className="text-clean">{docsManifest.allFiles.length} Documents</span>
             </div>
-            <div className="flex items-center glass rounded-full px-4 py-2">
-              <Clock className="h-4 w-4 mr-2 text-accent-500" />
-              <span className="text-neutral-700 dark:text-neutral-300">Always Updated</span>
+            <div className="flex items-center px-4 py-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
+              <Clock className="h-4 w-4 mr-2 accent-red" />
+              <span className="text-clean">Always Updated</span>
             </div>
           </div>
         </div>
@@ -79,18 +74,13 @@ const HomePage: React.FC = () => {
       {/* Projects Grid */}
       <div>
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold gradient-text">
+          <h2 className="text-3xl font-bold text-clean">
             Available Projects
           </h2>
-          <div className="hidden md:flex items-center glass rounded-full px-4 py-2">
-            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
-              {projects.length} {projects.length === 1 ? 'Project' : 'Projects'}
-            </span>
-          </div>
         </div>
         
         {projects.length > 0 ? (
-          <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => {
               const firstFile = getFirstFile(project);
               const projectName = formatProjectName(project.name);
@@ -100,71 +90,54 @@ const HomePage: React.FC = () => {
               return (
                 <div
                   key={project.name}
-                  className="group glass card-hover rounded-2xl overflow-hidden animate-fade-in"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="card-minimal bg-clean border border-clean rounded-lg overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${index * 50}ms` }}
                 >
                   {/* Card Header */}
-                  <div className="relative p-8">
-                    {/* Background accent */}
-                    <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 ${
-                      index % 3 === 0 ? 'bg-primary-400' :
-                      index % 3 === 1 ? 'bg-secondary-400' : 'bg-accent-400'
-                    }`}></div>
-                    
-                    <div className="relative">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center">
-                          <div className={`p-3 rounded-xl mr-4 ${
-                            index % 3 === 0 ? 'bg-primary-500/10' :
-                            index % 3 === 1 ? 'bg-secondary-500/10' : 'bg-accent-500/10'
-                          }`}>
-                            <Folder className={`h-8 w-8 ${
-                              index % 3 === 0 ? 'text-primary-500' :
-                              index % 3 === 1 ? 'text-secondary-500' : 'text-accent-500'
-                            }`} />
-                          </div>
-                          <div>
-                            <h3 className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform">
-                              {projectName}
-                            </h3>
-                            <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
-                              {project.files.length} {project.files.length === 1 ? 'Document' : 'Documents'}
-                            </p>
-                          </div>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center">
+                        <div className="p-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg mr-3">
+                          <Folder className="h-6 w-6 accent-green" />
                         </div>
-                        <div className={`text-xs font-semibold glass rounded-full px-3 py-1 ${
-                          index % 3 === 0 ? 'text-primary-600 bg-primary-500/10' :
-                          index % 3 === 1 ? 'text-secondary-600 bg-secondary-500/10' : 'text-accent-600 bg-accent-500/10'
-                        }`}>
-                          {readingTime} min
+                        <div>
+                          <h3 className="text-lg font-semibold text-clean">
+                            {projectName}
+                          </h3>
+                          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                            {project.files.length} {project.files.length === 1 ? 'document' : 'documents'}
+                          </p>
                         </div>
                       </div>
-                      
-                      <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
-                        {description}
-                      </p>
+                      <div className="text-xs text-neutral-400 dark:text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
+                        {readingTime}m
+                      </div>
                     </div>
+                    
+                    <p className="text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed mb-6">
+                      {description}
+                    </p>
                   </div>
 
                   {/* File Preview */}
-                  <div className="px-8 pb-6">
-                    <div className="glass rounded-xl p-4 mb-6">
-                      <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-4 flex items-center">
-                        <FileText className="h-4 w-4 mr-2 text-primary-500" />
+                  <div className="px-6 pb-4">
+                    <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg p-4 mb-4">
+                      <h4 className="text-xs font-medium text-neutral-500 dark:text-neutral-400 mb-3 flex items-center">
+                        <FileText className="h-3 w-3 mr-2" />
                         Available Documents
                       </h4>
-                      <div className="space-y-3">
+                      <div className="space-y-2">
                         {project.files.slice(0, 3).map((file) => (
-                          <div key={file.fileName} className="flex items-center text-sm group/item">
-                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary-400 to-secondary-400 mr-3 group-hover/item:scale-125 transition-transform"></div>
-                            <span className="text-neutral-600 dark:text-neutral-400 capitalize group-hover/item:text-neutral-900 dark:group-hover/item:text-white transition-colors">
+                          <div key={file.fileName} className="flex items-center text-sm">
+                            <div className="w-1.5 h-1.5 bg-neutral-400 dark:bg-neutral-500 rounded-full mr-3"></div>
+                            <span className="text-neutral-600 dark:text-neutral-400 capitalize">
                               {file.fileName.replace(/-/g, ' ')}
                             </span>
                           </div>
                         ))}
                         {project.files.length > 3 && (
-                          <div className="text-sm text-primary-500 dark:text-primary-400 font-medium">
-                            +{project.files.length - 3} more documents
+                          <div className="text-xs text-neutral-500 dark:text-neutral-400">
+                            +{project.files.length - 3} more
                           </div>
                         )}
                       </div>
@@ -175,24 +148,20 @@ const HomePage: React.FC = () => {
                       {firstFile ? (
                         <Link
                           to={firstFile.fullPath}
-                          className={`flex-1 btn-modern inline-flex items-center justify-center min-h-[48px] px-6 py-3 text-white text-sm font-semibold rounded-xl transition-all duration-300 group ${
-                            index % 3 === 0 ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700' :
-                            index % 3 === 1 ? 'bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700' :
-                            'bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700'
-                          }`}
+                          className="flex-1 btn-clean inline-flex items-center justify-center px-4 py-3 bg-clean text-neutral-900 dark:text-neutral-100 text-sm font-medium border border-neutral-300 dark:border-neutral-600 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-all"
                         >
                           <span>Start Reading</span>
-                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+                          <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                       ) : (
-                        <div className={`flex-1 inline-flex items-center justify-center px-6 py-3 glass text-neutral-400 dark:text-neutral-500 text-sm font-semibold rounded-xl cursor-not-allowed`}>
+                        <div className="flex-1 inline-flex items-center justify-center px-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-400 dark:text-neutral-500 text-sm font-medium rounded cursor-not-allowed">
                           No Documents
                         </div>
                       )}
                       
                       <Link
                         to={`/${project.name}`}
-                        className="min-h-[48px] min-w-[48px] btn-modern inline-flex items-center justify-center px-6 py-3 glass text-neutral-700 dark:text-neutral-300 text-sm font-semibold rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300"
+                        className="min-h-[44px] min-w-[44px] btn-clean inline-flex items-center justify-center px-4 py-3 border border-neutral-300 dark:border-neutral-600 text-clean hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-all"
                       >
                         View All
                       </Link>
@@ -203,80 +172,56 @@ const HomePage: React.FC = () => {
             })}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-            <BookOpen className="mx-auto h-16 w-16 text-gray-400 dark:text-gray-600 mb-4" />
-            <h3 className="text-xl font-medium text-gray-900 dark:text-white mb-2">
+          <div className="text-center py-16 bg-clean border border-clean rounded-lg">
+            <BookOpen className="mx-auto h-16 w-16 text-neutral-400 dark:text-neutral-600 mb-4" />
+            <h3 className="text-xl font-medium text-clean mb-2">
               No Projects Found
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md mx-auto">
-              It looks like there are no documentation projects available yet. 
-              Add some markdown files to the <code className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">/docs</code> folder to get started.
+            <p className="text-neutral-600 dark:text-neutral-400 mb-6 max-w-md mx-auto">
+              Add markdown files to the <code className="bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded text-sm">/docs</code> folder to get started.
             </p>
-            <div className="text-sm text-gray-500 dark:text-gray-400">
-              <p>Expected structure:</p>
-              <code className="block bg-gray-100 dark:bg-gray-700 p-3 rounded-lg mt-2 text-left max-w-xs mx-auto">
-                docs/<br />
-                ├── project-name/<br />
-                │   ├── file1.md<br />
-                │   └── file2.md<br />
-                └── another-project/<br />
-                &nbsp;&nbsp;&nbsp;&nbsp;└── guide.md
-              </code>
-            </div>
           </div>
         )}
       </div>
 
-      {/* Quick Stats */}
-      <div className="glass rounded-2xl p-8">
-        <h3 className="text-2xl font-bold gradient-text mb-8 text-center">
+      {/* Stats */}
+      <div className="bg-clean border border-clean rounded-lg p-8">
+        <h3 className="text-xl font-bold text-clean mb-6 text-center">
           Documentation Stats
         </h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-              <Folder className="h-8 w-8 text-white" />
-            </div>
-            <div className="text-3xl font-bold gradient-text mb-2">
+          <div className="text-center">
+            <div className="text-3xl font-bold accent-green mb-1">
               {projects.length}
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
-              Active Projects
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              Projects
             </div>
           </div>
           
-          <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-              <FileText className="h-8 w-8 text-white" />
-            </div>
-            <div className="text-3xl font-bold gradient-text mb-2">
+          <div className="text-center">
+            <div className="text-3xl font-bold accent-green mb-1">
               {docsManifest.allFiles.length}
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
-              Total Documents
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">
+              Documents
             </div>
           </div>
           
-          <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-              <Clock className="h-8 w-8 text-white" />
-            </div>
-            <div className="text-3xl font-bold gradient-text mb-2">
+          <div className="text-center">
+            <div className="text-3xl font-bold accent-red mb-1">
               {Math.round(docsManifest.allFiles.length / Math.max(projects.length, 1))}
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">
               Avg per Project
             </div>
           </div>
           
-          <div className="text-center group">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
-              <BookOpen className="h-8 w-8 text-white" />
-            </div>
-            <div className="text-3xl font-bold gradient-text mb-2">
+          <div className="text-center">
+            <div className="text-3xl font-bold accent-green mb-1">
               {projects.reduce((total, project) => total + getProjectReadingTime(project), 0)}m
             </div>
-            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400">
               Reading Time
             </div>
           </div>

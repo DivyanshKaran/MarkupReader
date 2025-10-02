@@ -84,15 +84,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   const shouldUseVirtualization = allFiles.length > 50; // Use virtualization for 50+ files
 
   return (
-    <div className="flex flex-col h-full w-full glass rounded-r-2xl">
+    <div className="flex flex-col h-full w-full bg-clean border-r border-clean">
       {/* Header */}
-      <div className={`flex items-center border-b border-white/10 ${
-        isMiniSidebar ? 'justify-center p-3' : 'justify-between p-6'
+      <div className={`flex items-center border-b border-clean ${
+        isMiniSidebar ? 'justify-center p-3' : 'justify-between p-4'
       }`}>
         <Link 
           to="/" 
-          className={`flex items-center font-bold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 hover:scale-105 ${
-            isMiniSidebar ? 'text-sm' : 'text-xl'
+          className={`flex items-center font-semibold text-clean hover:text-primary-500 transition-colors ${
+            isMiniSidebar ? 'text-sm' : 'text-lg'
           }`}
           onClick={() => {
             if (isMobile || isTablet) {
@@ -101,12 +101,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           }}
           title={isMiniSidebar ? 'Documentation Hub' : undefined}
         >
-          <div className={`inline-flex items-center justify-center bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl shadow-lg ${
-            isMiniSidebar ? 'w-8 h-8' : 'w-10 h-10 mr-3'
-          }`}>
-            <BookOpen className={`${isMiniSidebar ? 'h-4 w-4' : 'h-5 w-5'} text-white`} />
-          </div>
-          {!isMiniSidebar && <span className="gradient-text">Documentation</span>}
+          <BookOpen className={`${isMiniSidebar ? 'h-4 w-4' : 'h-5 w-5 mr-2'}`} />
+          {!isMiniSidebar && 'Documentation'}
         </Link>
 
         {!isMiniSidebar && (
@@ -115,24 +111,24 @@ const Sidebar: React.FC<SidebarProps> = ({
             {isTablet && onToggleMini && (
               <button
                 onClick={onToggleMini}
-                className="min-h-[44px] min-w-[44px] p-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 active:bg-neutral-300 dark:active:bg-neutral-600 transition-all duration-150 hover:scale-105 active:scale-95 touch-manipulation"
+                className="p-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 aria-label="Toggle mini sidebar"
                 title="Toggle mini sidebar"
               >
-                <ChevronLeft className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+                <ChevronLeft className="h-4 w-4 text-clean" />
               </button>
             )}
 
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="min-h-[44px] min-w-[44px] p-3 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 active:from-accent-700 active:to-accent-800 transition-all duration-200 hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl"
+              className="p-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (
-                <Moon className="h-5 w-5 text-white" />
+                <Moon className="h-4 w-4 text-clean" />
               ) : (
-                <Sun className="h-5 w-5 text-white" />
+                <Sun className="h-4 w-4 text-clean" />
               )}
             </button>
 
@@ -140,10 +136,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             {(isMobile || isTablet) && (
               <button
                 onClick={onToggle}
-                className="min-h-[44px] min-w-[44px] p-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 active:bg-neutral-300 dark:active:bg-neutral-600 transition-all duration-150 hover:scale-105 active:scale-95 touch-manipulation"
+                className="p-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                 aria-label="Close sidebar"
               >
-                <X className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+                <X className="h-4 w-4 text-clean" />
               </button>
             )}
           </div>
@@ -157,17 +153,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             items={allFiles}
             itemHeight={44}
             containerHeight={400}
-            className="space-y-2"
+            className="space-y-1"
             renderItem={({ project, file }) => {
               const isActive = isActiveFile(project.name, file.fileName);
               return (
                 <Link
                   key={file.fullPath}
                   to={file.fullPath}
-                  className={`flex items-center min-h-[44px] px-3 py-3 rounded-lg text-sm transition-all duration-150 hover:scale-[1.02] active:scale-[0.98] touch-manipulation ${
+                  className={`flex items-center min-h-[44px] px-3 py-2 rounded text-sm transition-colors ${
                     isActive
-                      ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium shadow-sm'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400 active:bg-neutral-200 dark:active:bg-neutral-700'
+                      ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300'
                   }`}
                   onClick={() => {
                     if (isMobile || isTablet) {
@@ -184,16 +180,16 @@ const Sidebar: React.FC<SidebarProps> = ({
             }}
           />
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-1">
             {/* Home link */}
             <Link
               to="/"
-              className={`flex items-center min-h-[44px] rounded-lg font-medium transition-all duration-150 touch-manipulation ${
-                isMiniSidebar ? 'justify-center px-2 py-3' : 'px-3 py-3'
+              className={`flex items-center min-h-[44px] rounded font-medium transition-colors ${
+                isMiniSidebar ? 'justify-center px-2 py-2' : 'px-3 py-2'
               } ${
                 location.pathname === '/'
-                  ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 shadow-sm'
-                  : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400 active:bg-neutral-200 dark:active:bg-neutral-700'
+                  ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
+                  : 'text-clean hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300'
               }`}
               onClick={() => {
                 if (isMobile || isTablet) {
@@ -219,10 +215,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                     // Mini sidebar: icon only with tooltip
                     <Link
                       to={`/${project.name}`}
-                      className={`flex items-center justify-center min-h-[44px] w-full rounded-lg font-medium transition-all duration-150 touch-manipulation ${
+                      className={`flex items-center justify-center min-h-[44px] w-full rounded font-medium transition-colors ${
                         isProjectActive
-                          ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 shadow-sm'
-                          : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400 active:bg-neutral-200 dark:active:bg-neutral-700'
+                          ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300'
+                          : 'text-clean hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300'
                       }`}
                       title={`${project.name.replace(/-/g, ' ')} (${project.files.length} files)`}
                       onClick={() => {
@@ -231,14 +227,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                         }
                       }}
                     >
-                      <Folder className="h-4 w-4 text-primary-600 dark:text-primary-400" />
+                      <Folder className="h-4 w-4 accent-green" />
                     </Link>
                   ) : (
                     // Full sidebar: expandable project
                     <>
                       <button
                         onClick={() => toggleProject(project.name)}
-                        className="flex items-center flex-1 min-h-[44px] px-3 py-3 rounded-lg text-sm font-medium text-left transition-all duration-150 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:scale-[1.02] active:bg-neutral-200 dark:active:bg-neutral-700 active:scale-[0.98] touch-manipulation"
+                        className="flex items-center flex-1 min-h-[44px] px-3 py-2 rounded text-sm font-medium text-left hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
                       >
                         <div className="flex items-center flex-1">
                             {isExpanded ? (
@@ -246,16 +242,16 @@ const Sidebar: React.FC<SidebarProps> = ({
                             ) : (
                               <ChevronRight className="h-4 w-4 mr-2 text-neutral-500 dark:text-neutral-400 transition-transform duration-200" />
                             )}
-                            <Folder className="h-4 w-4 mr-2 text-primary-600 dark:text-primary-400" />
+                            <Folder className="h-4 w-4 mr-2 accent-green" />
                             <span className={`capitalize ${
                               isProjectActive
                                 ? 'text-primary-700 dark:text-primary-300 font-semibold'
-                                : 'text-neutral-700 dark:text-neutral-300'
+                                : 'text-clean'
                             }`}>
                               {project.name.replace(/-/g, ' ')}
                             </span>
                           </div>
-                          <span className="text-xs text-neutral-500 dark:text-neutral-400 ml-2 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded-full">
+                          <span className="text-xs text-neutral-500 dark:text-neutral-400 ml-2 bg-neutral-100 dark:bg-neutral-800 px-2 py-1 rounded">
                             {project.files.length}
                           </span>
                         </button>
@@ -263,8 +259,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                         {/* Project link */}
                         <Link
                           to={`/${project.name}`}
-                          className={`min-h-[44px] min-w-[44px] p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 transition-all duration-150 hover:scale-110 active:scale-95 touch-manipulation ${
-                            isProjectActive ? 'text-primary-600 dark:text-primary-400' : 'text-neutral-500 dark:text-neutral-400'
+                          className={`min-h-[44px] min-w-[44px] p-2 rounded hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors ${
+                            isProjectActive ? 'text-primary-500' : 'text-neutral-500 dark:text-neutral-400'
                           }`}
                           title={`View ${project.name} overview`}
                           onClick={() => {
@@ -289,10 +285,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                           <Link
                             key={file.fullPath}
                             to={file.fullPath}
-                            className={`flex items-center min-h-[44px] px-3 py-3 rounded-lg text-sm transition-all duration-150 hover:scale-[1.02] active:scale-[0.98] touch-manipulation ${
+                            className={`flex items-center min-h-[44px] px-3 py-2 rounded text-sm transition-colors ${
                               isActive
-                                ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium shadow-sm'
-                                : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400 active:bg-neutral-200 dark:active:bg-neutral-700'
+                                ? 'bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 font-medium'
+                                : 'text-neutral-600 dark:text-neutral-400 hover:bg-primary-100 dark:hover:bg-primary-900 hover:text-primary-700 dark:hover:text-primary-300'
                             }`}
                             onClick={() => {
                               if (isMobile || isTablet) {
@@ -317,10 +313,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             {projects.length === 0 && (
               <div className="text-center py-8">
                 <Folder className="h-8 w-8 text-neutral-400 dark:text-neutral-600 mx-auto mb-2" />
-                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                <p className="text-sm text-clean">
                   No projects found
                 </p>
-                <p className="text-xs text-neutral-400 dark:text-neutral-500 mt-1">
+                <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
                   Add markdown files to /docs
                 </p>
               </div>
@@ -331,7 +327,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Footer */}
       {!isMiniSidebar && (
-        <div className="border-t border-neutral-200 dark:border-neutral-700 p-4">
+        <div className="border-t border-clean p-4">
           <div className="text-xs text-neutral-500 dark:text-neutral-400 text-center">
             {projects.length} {projects.length === 1 ? 'project' : 'projects'} • {' '}
             {docsManifest.allFiles.length} {docsManifest.allFiles.length === 1 ? 'file' : 'files'}
