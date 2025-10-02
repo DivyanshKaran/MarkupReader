@@ -38,30 +38,39 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Hero Section */}
-      <div className="text-center py-12 bg-gradient-to-br from-primary-50 to-primary-100 dark:from-neutral-800 dark:to-neutral-900 rounded-2xl border border-primary-100 dark:border-neutral-700 animate-slide-in">
-        <div className="max-w-3xl mx-auto px-6">
-          <BookOpen className="mx-auto h-16 w-16 text-blue-600 dark:text-blue-400 mb-6" />
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Welcome to Documentation Hub
+      <div className="relative overflow-hidden glass rounded-4xl p-8 md:p-12 text-center animate-slide-in">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-500/10 via-secondary-500/5 to-accent-500/10"></div>
+        <div className="absolute top-4 right-4 w-24 h-24 bg-gradient-to-br from-primary-400/20 to-secondary-400/20 rounded-full blur-xl"></div>
+        <div className="absolute bottom-4 left-4 w-32 h-32 bg-gradient-to-br from-accent-400/20 to-primary-400/20 rounded-full blur-xl"></div>
+        
+        <div className="relative max-w-4xl mx-auto">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-2xl shadow-lg mb-8">
+            <BookOpen className="h-10 w-10 text-white" />
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl font-bold gradient-text mb-6">
+            Documentation Hub
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-            Explore our comprehensive collection of guides, tutorials, and documentation. 
-            Everything you need to build amazing projects, organized and ready to dive into.
+          <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-300 mb-12 leading-relaxed max-w-3xl mx-auto">
+            Discover, learn, and build with our comprehensive collection of guides and tutorials.
+            Everything you need to create amazing projects, beautifully organized and ready to explore.
           </p>
-          <div className="flex items-center justify-center space-x-8 text-sm text-gray-500 dark:text-gray-400">
-            <div className="flex items-center">
-              <Folder className="h-4 w-4 mr-2" />
-              <span>{projects.length} Projects</span>
+          
+          <div className="flex flex-wrap items-center justify-center gap-8 text-sm font-medium">
+            <div className="flex items-center glass rounded-full px-4 py-2">
+              <Folder className="h-4 w-4 mr-2 text-primary-500" />
+              <span className="text-neutral-700 dark:text-neutral-300">{projects.length} Projects</span>
             </div>
-            <div className="flex items-center">
-              <FileText className="h-4 w-4 mr-2" />
-              <span>{docsManifest.allFiles.length} Documents</span>
+            <div className="flex items-center glass rounded-full px-4 py-2">
+              <FileText className="h-4 w-4 mr-2 text-secondary-500" />
+              <span className="text-neutral-700 dark:text-neutral-300">{docsManifest.allFiles.length} Documents</span>
             </div>
-            <div className="flex items-center">
-              <Clock className="h-4 w-4 mr-2" />
-              <span>Always up-to-date</span>
+            <div className="flex items-center glass rounded-full px-4 py-2">
+              <Clock className="h-4 w-4 mr-2 text-accent-500" />
+              <span className="text-neutral-700 dark:text-neutral-300">Always Updated</span>
             </div>
           </div>
         </div>
@@ -69,13 +78,20 @@ const HomePage: React.FC = () => {
 
       {/* Projects Grid */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-          Available Projects
-        </h2>
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold gradient-text">
+            Available Projects
+          </h2>
+          <div className="hidden md:flex items-center glass rounded-full px-4 py-2">
+            <span className="text-sm font-medium text-neutral-600 dark:text-neutral-300">
+              {projects.length} {projects.length === 1 ? 'Project' : 'Projects'}
+            </span>
+          </div>
+        </div>
         
         {projects.length > 0 ? (
-          <div className="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => {
+          <div className="grid gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, index) => {
               const firstFile = getFirstFile(project);
               const projectName = formatProjectName(project.name);
               const description = getProjectDescription(project.name);
@@ -84,78 +100,99 @@ const HomePage: React.FC = () => {
               return (
                 <div
                   key={project.name}
-                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden hover:scale-[1.02]"
+                  className="group glass card-hover rounded-2xl overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Card Header */}
-                  <div className="p-6 pb-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center">
-                        <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg mr-3">
-                          <Folder className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                        </div>
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {projectName}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {project.files.length} {project.files.length === 1 ? 'document' : 'documents'}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-xs text-gray-400 dark:text-gray-500 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">
-                        {readingTime} min read
-                      </div>
-                    </div>
+                  <div className="relative p-8">
+                    {/* Background accent */}
+                    <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-3xl opacity-20 ${
+                      index % 3 === 0 ? 'bg-primary-400' :
+                      index % 3 === 1 ? 'bg-secondary-400' : 'bg-accent-400'
+                    }`}></div>
                     
-                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
-                      {description}
-                    </p>
+                    <div className="relative">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center">
+                          <div className={`p-3 rounded-xl mr-4 ${
+                            index % 3 === 0 ? 'bg-primary-500/10' :
+                            index % 3 === 1 ? 'bg-secondary-500/10' : 'bg-accent-500/10'
+                          }`}>
+                            <Folder className={`h-8 w-8 ${
+                              index % 3 === 0 ? 'text-primary-500' :
+                              index % 3 === 1 ? 'text-secondary-500' : 'text-accent-500'
+                            }`} />
+                          </div>
+                          <div>
+                            <h3 className="text-xl font-bold gradient-text group-hover:scale-105 transition-transform">
+                              {projectName}
+                            </h3>
+                            <p className="text-sm text-neutral-500 dark:text-neutral-400 font-medium">
+                              {project.files.length} {project.files.length === 1 ? 'Document' : 'Documents'}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={`text-xs font-semibold glass rounded-full px-3 py-1 ${
+                          index % 3 === 0 ? 'text-primary-600 bg-primary-500/10' :
+                          index % 3 === 1 ? 'text-secondary-600 bg-secondary-500/10' : 'text-accent-600 bg-accent-500/10'
+                        }`}>
+                          {readingTime} min
+                        </div>
+                      </div>
+                      
+                      <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-6">
+                        {description}
+                      </p>
+                    </div>
                   </div>
 
                   {/* File Preview */}
-                  <div className="px-6 pb-4">
-                    <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-3 mb-4">
-                      <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
+                  <div className="px-8 pb-6">
+                    <div className="glass rounded-xl p-4 mb-6">
+                      <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-4 flex items-center">
+                        <FileText className="h-4 w-4 mr-2 text-primary-500" />
                         Available Documents
                       </h4>
-                      <div className="space-y-1">
-                        {project.files.slice(0, 3).map((file) => (
-                          <div key={file.fileName} className="flex items-center text-sm">
-                            <FileText className="h-3 w-3 text-gray-400 dark:text-gray-500 mr-2" />
-                            <span className="text-gray-600 dark:text-gray-400 capitalize">
+                      <div className="space-y-3">
+                        {project.files.slice(0, 3).map((file, fileIndex) => (
+                          <div key={file.fileName} className="flex items-center text-sm group/item">
+                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-primary-400 to-secondary-400 mr-3 group-hover/item:scale-125 transition-transform"></div>
+                            <span className="text-neutral-600 dark:text-neutral-400 capitalize group-hover/item:text-neutral-900 dark:group-hover/item:text-white transition-colors">
                               {file.fileName.replace(/-/g, ' ')}
                             </span>
                           </div>
                         ))}
                         {project.files.length > 3 && (
-                          <div className="text-xs text-gray-500 dark:text-gray-400 italic">
+                          <div className="text-sm text-primary-500 dark:text-primary-400 font-medium">
                             +{project.files.length - 3} more documents
                           </div>
                         )}
                       </div>
                     </div>
-                  </div>
 
-                  {/* Card Actions */}
-                  <div className="px-6 pb-6">
-                    <div className="flex space-x-3">
+                    {/* Card Actions */}
+                    <div className="flex gap-3">
                       {firstFile ? (
                         <Link
                           to={firstFile.fullPath}
-                          className="flex-1 inline-flex items-center justify-center min-h-[44px] px-4 py-3 bg-blue-600 dark:bg-blue-700 text-white text-sm font-medium rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 active:bg-blue-800 dark:active:bg-blue-500 transition-all duration-150 group touch-manipulation"
+                          className={`flex-1 btn-modern inline-flex items-center justify-center min-h-[48px] px-6 py-3 text-white text-sm font-semibold rounded-xl transition-all duration-300 group ${
+                            index % 3 === 0 ? 'bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700' :
+                            index % 3 === 1 ? 'bg-gradient-to-r from-secondary-500 to-secondary-600 hover:from-secondary-600 hover:to-secondary-700' :
+                            'bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700'
+                          }`}
                         >
-                          Start Reading
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
+                          <span>Start Reading</span>
+                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
                         </Link>
                       ) : (
-                        <div className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 text-sm font-medium rounded-lg cursor-not-allowed">
-                          No documents
+                        <div className={`flex-1 inline-flex items-center justify-center px-6 py-3 glass text-neutral-400 dark:text-neutral-500 text-sm font-semibold rounded-xl cursor-not-allowed`}>
+                          No Documents
                         </div>
                       )}
                       
                       <Link
                         to={`/${project.name}`}
-                        className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 active:bg-gray-100 dark:active:bg-gray-600 transition-all duration-150 touch-manipulation"
+                        className="min-h-[48px] min-w-[48px] btn-modern inline-flex items-center justify-center px-6 py-3 glass text-neutral-700 dark:text-neutral-300 text-sm font-semibold rounded-xl hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300"
                       >
                         View All
                       </Link>
@@ -191,41 +228,56 @@ const HomePage: React.FC = () => {
       </div>
 
       {/* Quick Stats */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+      <div className="glass rounded-2xl p-8">
+        <h3 className="text-2xl font-bold gradient-text mb-8 text-center">
           Documentation Stats
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="text-center group">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+              <Folder className="h-8 w-8 text-white" />
+            </div>
+            <div className="text-3xl font-bold gradient-text mb-2">
               {projects.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              Projects
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+              Active Projects
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-600 dark:text-green-400 mb-1">
+          
+          <div className="text-center group">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-secondary-500 to-secondary-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+              <FileText className="h-8 w-8 text-white" />
+            </div>
+            <div className="text-3xl font-bold gradient-text mb-2">
               {docsManifest.allFiles.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              Documents
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+              Total Documents
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+          
+          <div className="text-center group">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-accent-500 to-accent-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+              <Clock className="h-8 w-8 text-white" />
+            </div>
+            <div className="text-3xl font-bold gradient-text mb-2">
               {Math.round(docsManifest.allFiles.length / Math.max(projects.length, 1))}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
               Avg per Project
             </div>
           </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-1">
-              {projects.reduce((total, project) => total + getProjectReadingTime(project), 0)}
+          
+          <div className="text-center group">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mb-4 group-hover:scale-110 transition-transform">
+              <BookOpen className="h-8 w-8 text-white" />
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">
-              Min to Read
+            <div className="text-3xl font-bold gradient-text mb-2">
+              {projects.reduce((total, project) => total + getProjectReadingTime(project), 0)}m
+            </div>
+            <div className="text-sm text-neutral-600 dark:text-neutral-400 font-medium">
+              Reading Time
             </div>
           </div>
         </div>
@@ -233,5 +285,7 @@ const HomePage: React.FC = () => {
     </div>
   );
 };
+
+export default HomePage;
 
 export default HomePage;

@@ -84,15 +84,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   const shouldUseVirtualization = allFiles.length > 50; // Use virtualization for 50+ files
 
   return (
-    <div className="flex flex-col h-full w-full bg-white dark:bg-neutral-900">
+    <div className="flex flex-col h-full w-full glass rounded-r-2xl">
       {/* Header */}
-      <div className={`flex items-center border-b border-neutral-200 dark:border-neutral-700 ${
-        isMiniSidebar ? 'justify-center p-2' : 'justify-between p-4'
+      <div className={`flex items-center border-b border-white/10 ${
+        isMiniSidebar ? 'justify-center p-3' : 'justify-between p-6'
       }`}>
         <Link 
           to="/" 
-          className={`flex items-center font-semibold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 hover:scale-105 ${
-            isMiniSidebar ? 'text-sm' : 'text-lg'
+          className={`flex items-center font-bold text-neutral-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 hover:scale-105 ${
+            isMiniSidebar ? 'text-sm' : 'text-xl'
           }`}
           onClick={() => {
             if (isMobile || isTablet) {
@@ -101,8 +101,12 @@ const Sidebar: React.FC<SidebarProps> = ({
           }}
           title={isMiniSidebar ? 'Documentation Hub' : undefined}
         >
-          <BookOpen className={`${isMiniSidebar ? 'h-4 w-4' : 'h-5 w-5 mr-2'}`} />
-          {!isMiniSidebar && 'Documentation'}
+          <div className={`inline-flex items-center justify-center bg-gradient-to-br from-primary-500 to-secondary-500 rounded-xl shadow-lg ${
+            isMiniSidebar ? 'w-8 h-8' : 'w-10 h-10 mr-3'
+          }`}>
+            <BookOpen className={`${isMiniSidebar ? 'h-4 w-4' : 'h-5 w-5'} text-white`} />
+          </div>
+          {!isMiniSidebar && <span className="gradient-text">Documentation</span>}
         </Link>
 
         {!isMiniSidebar && (
@@ -122,13 +126,13 @@ const Sidebar: React.FC<SidebarProps> = ({
             {/* Theme toggle */}
             <button
               onClick={toggleTheme}
-              className="min-h-[44px] min-w-[44px] p-3 rounded-lg bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 active:bg-neutral-300 dark:active:bg-neutral-600 transition-all duration-150 hover:scale-105 active:scale-95 touch-manipulation"
+              className="min-h-[44px] min-w-[44px] p-3 rounded-xl bg-gradient-to-br from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 active:from-accent-700 active:to-accent-800 transition-all duration-200 hover:scale-105 active:scale-95 touch-manipulation shadow-lg hover:shadow-xl"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (
-                <Moon className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+                <Moon className="h-5 w-5 text-white" />
               ) : (
-                <Sun className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+                <Sun className="h-5 w-5 text-white" />
               )}
             </button>
 
